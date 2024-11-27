@@ -16,19 +16,19 @@ void fsm_manual_run(){
 		case MANUAL_RED:
 			if(timer_flag[i] == 1){
 				blinkRed(i);
-				setTimer(i, 25);
+				setTimer(i, 250);
 			}
 			break;
 		case MANUAL_GREEN:
 			if(timer_flag[i] == 1){
 				blinkGreen(i);
-				setTimer(i, 25);
+				setTimer(i, 250);
 			}
 			break;
 		case MANUAL_YELLOW:
 			if(timer_flag[i] == 1){
 				blinkYellow(i);
-				setTimer(i, 25);
+				setTimer(i, 250);
 			}
 			break;
 		default:

@@ -23,14 +23,14 @@ void fsm_automatic_run(){
 				status[i] = AUTO_GREEN;
 			}
 			setTimer(i, timerLed[status[i] - 1]);
-			updateBuffer7SEG(i, timerLed[status[i] - 1] / 100);
+			updateBuffer7SEG(i, timerLed[status[i] - 1] / 1000);
 			break;
 		case AUTO_RED:
 			setRed(i);
 			if(timer_flag[i] == 1){
 				status[i] = AUTO_GREEN;
 				setTimer(i, timerLed[1]);
-				updateBuffer7SEG(i, timerLed[1] / 100);
+				updateBuffer7SEG(i, timerLed[1] / 1000);
 			}
 			break;
 		case AUTO_GREEN:
@@ -38,7 +38,7 @@ void fsm_automatic_run(){
 			if(timer_flag[i] == 1){
 				status[i] = AUTO_YELLOW;
 				setTimer(i, timerLed[2]);
-				updateBuffer7SEG(i, timerLed[2] / 100);
+				updateBuffer7SEG(i, timerLed[2] / 1000);
 			}
 			break;
 		case AUTO_YELLOW:
@@ -46,7 +46,7 @@ void fsm_automatic_run(){
 			if(timer_flag[i] == 1){
 				status[i] = AUTO_RED;
 				setTimer(i, timerLed[0]);
-				updateBuffer7SEG(i, timerLed[0] / 100);
+				updateBuffer7SEG(i, timerLed[0] / 1000);
 			}
 			break;
 		default:
