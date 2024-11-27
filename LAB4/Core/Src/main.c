@@ -101,8 +101,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(2, 25);
-  setTimer(3, 100);
+  setTimer(2, 250);
+  setTimer(3, 1000);
   while (1)
   {
 	  fsm_automatic_run();
