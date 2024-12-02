@@ -8,49 +8,68 @@
 #include "fsm_automatic.h"
 #include "main.h"
 #include "global.h"
-#include "software_timer.h"
 #include "traffic_light.h"
 #include "7SEG_led.h"
+#include "scheduler.h"
 
-void fsm_automatic_run(){
-	for(int i = 0; i < 2; i++){
-		switch(status[i]){
-		case INIT:
-			if(i == 0){
-				status[i] = AUTO_RED;
-			}
-			if(i == 1){
-				status[i] = AUTO_GREEN;
-			}
-			setTimer(i, timerLed[status[i] - 1]);
-			updateBuffer7SEG(i, timerLed[status[i] - 1] / 1000);
-			break;
-		case AUTO_RED:
-			setRed(i);
-			if(timer_flag[i] == 1){
-				status[i] = AUTO_GREEN;
-				setTimer(i, timerLed[1]);
-				updateBuffer7SEG(i, timerLed[1] / 1000);
-			}
-			break;
-		case AUTO_GREEN:
-			setGreen(i);
-			if(timer_flag[i] == 1){
-				status[i] = AUTO_YELLOW;
-				setTimer(i, timerLed[2]);
-				updateBuffer7SEG(i, timerLed[2] / 1000);
-			}
-			break;
-		case AUTO_YELLOW:
-			setYellow(i);
-			if(timer_flag[i] == 1){
-				status[i] = AUTO_RED;
-				setTimer(i, timerLed[0]);
-				updateBuffer7SEG(i, timerLed[0] / 1000);
-			}
-			break;
-		default:
-			break;
-		}
+void fsm_automatic_run0(){
+	switch(status[0]){
+	case INIT:
+		status[0] = AUTO_RED;
+		setRed(0);
+		setBuffer7SEG(0, timerLed[0] / 1000);
+		SCH_Add_Task(fsm_automatic_run0, timerLed[0], 0);
+		break;
+	case AUTO_RED:
+		status[0] = AUTO_GREEN;
+		setGreen(0);
+		setBuffer7SEG(0, timerLed[1] / 1000);
+		SCH_Add_Task(fsm_automatic_run0, timerLed[1], 0);
+		break;
+	case AUTO_GREEN:
+		status[0] = AUTO_YELLOW;
+		setYellow(0);
+		setBuffer7SEG(0, timerLed[2] / 1000);
+		SCH_Add_Task(fsm_automatic_run0, timerLed[2], 0);
+		break;
+	case AUTO_YELLOW:
+		status[0] = AUTO_RED;
+		setRed(0);
+		setBuffer7SEG(0, timerLed[0] / 1000);
+		SCH_Add_Task(fsm_automatic_run0, timerLed[0], 0);
+		break;
+	default:
+		break;
+	}
+}
+
+void fsm_automatic_run1(){
+	switch(status[1]){
+	case INIT:
+		status[1] = AUTO_GREEN;
+		setGreen(1);
+		setBuffer7SEG(1, timerLed[1] / 1000);
+		SCH_Add_Task(fsm_automatic_run1, timerLed[1], 0);
+		break;
+	case AUTO_RED:
+		status[1] = AUTO_GREEN;
+		setRed(1);
+		setBuffer7SEG(1, timerLed[1] / 1000);
+		SCH_Add_Task(fsm_automatic_run1, timerLed[1], 0);
+		break;
+	case AUTO_GREEN:
+		status[1] = AUTO_YELLOW;
+		setYellow(1);
+		setBuffer7SEG(1, timerLed[2] / 1000);
+		SCH_Add_Task(fsm_automatic_run1, timerLed[2], 0);
+		break;
+	case AUTO_YELLOW:
+		status[1] = AUTO_RED;
+		setRed(1);
+		setBuffer7SEG(1, timerLed[0] / 1000);
+		SCH_Add_Task(fsm_automatic_run1, timerLed[0], 0);
+		break;
+	default:
+		break;
 	}
 }

@@ -22,13 +22,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "software_timer.h"
 #include "button.h"
 #include "traffic_light.h"
 #include "fsm_automatic.h"
 #include "7SEG_led.h"
 #include "fsm_setting.h"
 #include "fsm_manual.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,7 +62,12 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void test1(){
+	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+}
+void test2(){
+	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+}
 /* USER CODE END 0 */
 
 /**
@@ -101,13 +106,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(2, 250);
-  setTimer(3, 1000);
+  SCH_Init();
+  /*SCH_Add_Task(fsm_automatic_run0, 1000, 0);
+  SCH_Add_Task(fsm_automatic_run1, 1000, 0);
+  SCH_Add_Task(update7SEG, 0, 250);
+  SCH_Add_Task(updateBuffer7SEG, 1000, 1000);
+  SCH_Add_Task(fsm_setting_run, 1000, 10);*/
+  SCH_Add_Task(test1, 1000, 1000);
+  SCH_Add_Task(test2, 2000, 1000);
   while (1)
   {
-	  fsm_automatic_run();
-	  fsm_manual_run();
-	  fsm_setting_run();
+	  SCH_Dispatch_Task();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -247,8 +257,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun();
-	getKeyInput();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 

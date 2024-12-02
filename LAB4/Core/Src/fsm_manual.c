@@ -7,28 +7,19 @@
 
 #include "fsm_manual.h"
 #include "traffic_light.h"
-#include "software_timer.h"
 #include "global.h"
+#include "scheduler.h"
 
 void fsm_manual_run(){
 	switch (status[0]){
 	case MANUAL_RED:
-		if(timer_flag[0] == 1){
-			blinkRed();
-			setTimer(0, 250);
-		}
+		blinkRed();
 		break;
 	case MANUAL_GREEN:
-		if(timer_flag[0] == 1){
-			blinkGreen();
-			setTimer(0, 250);
-		}
+		blinkGreen();
 		break;
 	case MANUAL_YELLOW:
-		if(timer_flag[0] == 1){
-			blinkYellow();
-			setTimer(0, 250);
-		}
+		blinkYellow();
 		break;
 	default:
 		break;

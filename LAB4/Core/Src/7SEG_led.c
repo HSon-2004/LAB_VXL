@@ -9,15 +9,24 @@
 #include "main.h"
 
 int buffer7SEG_led[4] = {0,0,0,0};
+int led_index = 0;
 
-void updateBuffer7SEG(int index, int time){
-	buffer7SEG_led[index*2] = time / 10;
-	buffer7SEG_led[index*2+1] = time % 10;
+void updateBuffer7SEG(){
+	int tmp1 = buffer7SEG_led[0]*10 + buffer7SEG_led[1] - 1;
+	buffer7SEG_led[0] = tmp1 / 10;
+	buffer7SEG_led[1] = tmp1 % 10;
+	int tmp2 = buffer7SEG_led[2]*10 + buffer7SEG_led[3] - 1;
+	buffer7SEG_led[2] = tmp2 / 10;
+	buffer7SEG_led[3] = tmp2 % 10;
 }
 
-void update7SEG(int index){
+void setBuffer7SEG(int i, int time){
+	buffer7SEG_led[i*2] = time / 10;
+	buffer7SEG_led[i*2+1] = time % 10;
+}
 
-	switch (index){
+void update7SEG(){
+	switch (led_index){
 	case 0:
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
@@ -45,7 +54,9 @@ void update7SEG(int index){
 	default:
 		break;
 	}
-	display7SEG(buffer7SEG_led[index]);
+	display7SEG(buffer7SEG_led[led_index]);
+	led_index++;
+	if(led_index >= 4) led_index = 0;
 }
 
 void display7SEG(int num)
