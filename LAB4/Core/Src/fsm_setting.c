@@ -81,6 +81,7 @@ void fsm_setting_run(){
 			status[1] = MANUAL_RED;
 			setBuffer7SEG(0, timerLed[0] / 1000);
 			setBuffer7SEG(1, 2);
+			setInit();
 			SCH_Add_Task(fsm_manual_run, 0, 250);
 		}
 	}

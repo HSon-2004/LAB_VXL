@@ -110,10 +110,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   SCH_Init();
-  SCH_Add_Task(fsm_automatic_run0, 1000, 0);
-  SCH_Add_Task(fsm_automatic_run1, 1000, 0);
   SCH_Add_Task(update7SEG, 1000, 250);
   SCH_Add_Task(updateBuffer7SEG, 1000, 1000);
+  SCH_Add_Task(fsm_automatic_run0, 1000, 0);
+  SCH_Add_Task(fsm_automatic_run1, 1000, 0);
   SCH_Add_Task(fsm_setting_run, 1000, 10);
   SCH_Add_Task(getKeyInput, 1000, 10);
   //SCH_Add_Task(test1, 1000, 1000);
