@@ -15,58 +15,50 @@ void SCH_Init(void){
 	listTask.nTask = 0;
 }
 
-void SCH_Add_Task ( void (*pFunction)(),
-					uint32_t DELAY,
-					uint32_t PERIOD){
+void SCH_Add_Task(void (*function)(), uint32_t DELAY, uint32_t PERIOD){
+	sTask * newTask = (sTask *) malloc (sizeof(sTask));
+	if (newTask == NULL) return;
 
-	if(listTask.nTask < SCH_MAX_TASKS){
-		sTask *newTask = (sTask *) malloc (sizeof(sTask));
-		if(newTask == NULL)
-				return;
+	newTask->pTask = function;
+	newTask->Delay = DELAY/10;
+	newTask->Period = PERIOD/10;
+	newTask->nextTask = NULL;
+	newTask->preTask = NULL;
 
-		newTask->pTask = pFunction;
-		newTask->Delay = DELAY / 10;
-		newTask->Period = PERIOD / 10;
-		newTask->preTask = NULL;
-		newTask->nextTask = NULL;
 
-		sTask *currTask = listTask.head;
-		if(currTask == NULL){
-			listTask.head = newTask;
-			listTask.tail = newTask;
-			listTask.nTask++;
-			return;
-		}
-
-		uint32_t delayAfterPreTask = DELAY;
-
-		while(currTask != NULL && delayAfterPreTask >= currTask->Delay){
-			delayAfterPreTask = delayAfterPreTask - currTask->Delay;
-			currTask = currTask->nextTask;
-		}
-
-		newTask->Delay = delayAfterPreTask;
-		if (currTask == listTask.head){
-			newTask->nextTask = currTask;
-			currTask->preTask = newTask;
-			currTask->Delay = currTask->Delay - delayAfterPreTask;
-			listTask.head = newTask;
-		}
-		else if (currTask == NULL){
-			newTask->preTask = listTask.tail;
-			listTask.tail->nextTask = newTask;
-			listTask.tail = newTask;
-		}
-		else{
-			newTask->nextTask = currTask->nextTask;
-			currTask->nextTask->preTask = newTask;
-			currTask->nextTask = newTask;
-			currTask->Delay = currTask->Delay - delayAfterPreTask;
-			newTask->preTask = currTask;
-		}
-
+	if(listTask.head == NULL){
+		listTask.head = newTask;
+		listTask.tail = newTask;
 		listTask.nTask++;
+		return;
 	}
+
+	sTask *currTask = listTask.head;
+	while(currTask != NULL && newTask->Delay >= currTask->Delay){
+		newTask->Delay = newTask->Delay - currTask->Delay;
+		currTask = currTask->nextTask;
+	}
+
+	if(currTask == listTask.head){
+		newTask->nextTask = listTask.head;
+		listTask.head->preTask = newTask;
+		listTask.head->Delay = listTask.head->Delay - newTask->Delay;
+		listTask.head = newTask;
+	}
+	else if(currTask == NULL){
+		newTask->preTask = listTask.tail;
+		listTask.tail->nextTask = newTask;
+		listTask.tail = newTask;
+	}
+	else{
+		newTask->nextTask = currTask;
+		newTask->preTask = currTask->preTask;
+		currTask->preTask->nextTask = newTask;
+		currTask->preTask = newTask;
+		currTask->Delay = currTask->Delay - newTask->Delay;
+		}
+
+	listTask.nTask++;
 }
 
 void SCH_Update(void){

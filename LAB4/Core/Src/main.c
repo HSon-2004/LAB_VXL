@@ -68,6 +68,9 @@ void test1(){
 void test2(){
 	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 }
+void test3(){
+	if(isButton1Pressed()) HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+}
 /* USER CODE END 0 */
 
 /**
@@ -107,16 +110,18 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   SCH_Init();
-  /*SCH_Add_Task(fsm_automatic_run0, 1000, 0);
+  SCH_Add_Task(fsm_automatic_run0, 1000, 0);
   SCH_Add_Task(fsm_automatic_run1, 1000, 0);
-  SCH_Add_Task(update7SEG, 0, 250);
+  SCH_Add_Task(update7SEG, 1000, 250);
   SCH_Add_Task(updateBuffer7SEG, 1000, 1000);
-  SCH_Add_Task(fsm_setting_run, 1000, 10);*/
-  SCH_Add_Task(test1, 1000, 1000);
-  SCH_Add_Task(test2, 2000, 1000);
+  SCH_Add_Task(fsm_setting_run, 1000, 10);
+  SCH_Add_Task(getKeyInput, 1000, 10);
+  //SCH_Add_Task(test1, 1000, 1000);
+  //SCH_Add_Task(test2, 2000, 1000);
+  //SCH_Add_Task(test3, 1000, 10);
   while (1)
   {
-	  SCH_Dispatch_Task();
+	  SCH_Dispatch_Tasks();
 
     /* USER CODE END WHILE */
 
