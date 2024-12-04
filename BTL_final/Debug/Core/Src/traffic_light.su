@@ -1,0 +1,7 @@
+traffic_light.c:11:6:setInit	8	static
+traffic_light.c:22:6:setRed	16	static
+traffic_light.c:37:6:setGreen	16	static
+traffic_light.c:52:6:setYellow	16	static
+traffic_light.c:67:6:blinkRed	8	static
+traffic_light.c:78:6:blinkYellow	8	static
+traffic_light.c:89:6:blinkGreen	16	static
