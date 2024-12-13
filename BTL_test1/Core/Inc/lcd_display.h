@@ -14,6 +14,7 @@
 void displayLCD();
 void setBufferLCD(int index, int data);
 void updateBufferLCD();
+void lcd_clear_row (int row);
 
 extern int buffer[2];
 

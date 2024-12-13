@@ -23,18 +23,15 @@ void fsm_setting_run(){
 			switch(status[0]){
 			case MANUAL_RED:
 				if(tmp[0] < 99*1000) tmp[0] = tmp[0] + 1000;
-				//setBuffer7SEG(0, tmp[0] / 1000);
 				setBufferLCD(1, tmp[0] / 1000);
 				break;
 			case MANUAL_GREEN:
 				if(tmp[1] < 99*1000) tmp[1] = tmp[1] + 1000;
-				//setBuffer7SEG(0, tmp[1] / 1000);
 				setBufferLCD(1, tmp[1] / 1000);
 				break;
 			case MANUAL_YELLOW:
 				if(tmp[2] < 99*1000) tmp[2] = tmp[2] + 1000;
-				//setBuffer7SEG(0, tmp[2] / 1000);
-				setBufferLCD(1, timerLed[2] / 1000);
+				setBufferLCD(1, tmp[2] / 1000);
 				break;
 			default:
 				break;
@@ -52,26 +49,24 @@ void fsm_setting_run(){
 			case MANUAL_RED:
 				status[0] = MANUAL_GREEN;
 				status[1] = MANUAL_GREEN;
-				//setBuffer7SEG(0, tmp[1] / 1000);
-				//setBuffer7SEG(0, 3);
+				lcd_clear_display();
 				setBufferLCD(1, tmp[1] / 1000);
 				setBufferLCD(2, 3);
 				break;
 			case MANUAL_GREEN:
 				status[0] = MANUAL_YELLOW;
 				status[1] = MANUAL_YELLOW;
-				//setBuffer7SEG(0, tmp[2] / 1000);
-				//setBuffer7SEG(1, 4);
-				setBufferLCD(1, timerLed[2] / 1000);
+				lcd_clear_display();
+				setBufferLCD(1, tmp[2] / 1000);
 				setBufferLCD(2, 4);
 				break;
 			case MANUAL_YELLOW:
 				status[0] = INIT;
 				status[1] = INIT;
 				SCH_Delete(fsm_manual_run);
+				lcd_clear_display();
 				fsm_automatic_run0();
 				fsm_automatic_run1();
-				//SCH_Add_Task(updateBuffer7SEG, 1000, 1000);
 				SCH_Add_Task(updateBufferLCD, 0, 1000);
 				break;
 			default:
@@ -85,13 +80,11 @@ void fsm_setting_run(){
 
 			SCH_Delete(fsm_automatic_run0);
 			SCH_Delete(fsm_automatic_run1);
-			//SCH_Delete(updateBuffer7SEG);
 			SCH_Delete(updateBufferLCD);
 			status[0] = MANUAL_RED;
 			status[1] = MANUAL_RED;
-			//setBuffer7SEG(0, timerLed[0] / 1000);
-			//setBuffer7SEG(1, 2);
-			setBufferLCD(1, timerLed[0] / 1000);
+			lcd_clear_display();
+			setBufferLCD(1, tmp[0] / 1000);
 			setBufferLCD(2, 2);
 			setInit();
 			SCH_Add_Task(fsm_manual_run, 0, 250);
