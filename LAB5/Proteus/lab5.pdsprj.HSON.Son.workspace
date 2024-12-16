@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffff480000004f00000046060000ad030000</PLACEMENT>
+  <PLACEMENT>2c00000002000000020000000083ffff0083ffffffffffffffffffff480000004f00000046060000ad030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
    <POPUP w="800" x="39" flags="00000002" y="165" h="200" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">542</ITEM>
+     <ITEM name="Message Column Width">540</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -366,10 +366,10 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="226" x="739" flags="00000008" y="865" h="182" pid="102" iid="3">
+   <POPUP w="258" x="739" flags="00000008" y="865" h="216" pid="102" iid="3">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="170" x="759" flags="00000008" y="885" h="237" pid="191" iid="3">
+   <POPUP w="194" x="759" flags="00000008" y="885" h="281" pid="191" iid="3">
     <PROPERTIES/>
    </POPUP>
   </PWI>

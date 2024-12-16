@@ -1,0 +1,4 @@
+7SEG_led.c:14:6:updateBuffer7SEG	16	static
+7SEG_led.c:23:6:setBuffer7SEG	16	static
+7SEG_led.c:28:6:update7SEG	8	static
+7SEG_led.c:62:6:display7SEG	16	static

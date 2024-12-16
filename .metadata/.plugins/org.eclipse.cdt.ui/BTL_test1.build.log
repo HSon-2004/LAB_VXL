@@ -1,0 +1,23 @@
+10:00:49 **** Build of configuration Debug for project BTL_test1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/lcd_display.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/lcd_display.d" -MT"Core/Src/lcd_display.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/lcd_display.o"
+arm-none-eabi-gcc -o "BTL_test1.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\lab-VXL\BTL_test1\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BTL_test1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BTL_test1.elf
+ 
+arm-none-eabi-size   BTL_test1.elf 
+arm-none-eabi-objdump -h -S  BTL_test1.elf  > "BTL_test1.list"
+arm-none-eabi-objcopy  -O ihex  BTL_test1.elf  "BTL_test1.hex"
+arm-none-eabi-objcopy  -O binary  BTL_test1.elf  "BTL_test1.bin"
+   text	   data	    bss	    dec	    hex	filename
+  25116	    204	   2036	  27356	   6adc	BTL_test1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BTL_test1.bin
+Finished building: BTL_test1.hex
+ 
+ 
+Finished building: BTL_test1.list
+ 
+
+10:00:54 Build Finished. 0 errors, 0 warnings. (took 5s.638ms)
+

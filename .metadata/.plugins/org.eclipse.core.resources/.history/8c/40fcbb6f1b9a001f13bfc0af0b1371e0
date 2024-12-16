@@ -1,0 +1,80 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 1, 2024
+ *      Author: Son
+ */
+
+#include "global.h"
+
+void fsm_automatic_run(){
+	switch (status1){
+	case INIT:
+		setInit();
+		status1 = AUTO_RED;
+		setTimer1(timeRed);
+		update7SEGBuffer1(timeRed/100);
+		break;
+	case AUTO_RED:
+		setRed1();
+		if (timer1_flag == 1){
+			status1 = AUTO_GREEN;
+			setTimer1(timeGreen);
+			update7SEGBuffer1(timeGreen/100);
+		}
+		break;
+	case AUTO_GREEN:
+		setGreen1();
+		if (timer1_flag == 1){
+			status1 = AUTO_YELLOW;
+			setTimer1(timeYellow);
+			update7SEGBuffer1(timeYellow/100);
+		}
+		break;
+	case AUTO_YELLOW:
+		setYellow1();
+		if (timer1_flag == 1){
+			status1 = AUTO_RED;
+			setTimer1(timeRed);
+			update7SEGBuffer1(timeRed/100);
+		}
+		break;
+	default:
+		break;
+	}
+
+	switch(status2){
+	case INIT:
+		setInit();
+		status2 = AUTO_GREEN;
+		setTimer2(timeGreen);
+		update7SEGBuffer2(timeGreen);
+		break;
+	case AUTO_RED:
+		setRed2();
+		if (timer2_flag == 1){
+			status2 = AUTO_GREEN;
+			setTimer2(timeGreen);
+			update7SEGBuffer2(timeGreen);
+		}
+		break;
+	case AUTO_GREEN:
+		setGreen2();
+		if (timer2_flag == 1){
+			status2 = AUTO_YELLOW;
+			setTimer2(timeYellow);
+			update7SEGBuffer2(timeYellow);
+		}
+		break;
+	case AUTO_YELLOW:
+		setYellow2();
+		if (timer2_flag == 1){
+			status2 = AUTO_RED;
+			setTimer2(timeRed);
+			update7SEGBuffer2(timeRed);
+		}
+		break;
+	default:
+		break;
+	}
+}

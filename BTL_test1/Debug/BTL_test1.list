@@ -1438,7 +1438,6 @@ void setBufferLCD(int index, int data){
  8000a3e:	4905      	ldr	r1, [pc, #20]	; (8000a54 <setBufferLCD+0x24>)
  8000a40:	683a      	ldr	r2, [r7, #0]
  8000a42:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
-	//lcd_clear_display();
 	displayLCD();
  8000a46:	f7ff ffb1 	bl	80009ac <displayLCD>
 }
@@ -1466,7 +1465,6 @@ void updateBufferLCD(){
  8000a6a:	3b01      	subs	r3, #1
  8000a6c:	4a02      	ldr	r2, [pc, #8]	; (8000a78 <updateBufferLCD+0x20>)
  8000a6e:	6053      	str	r3, [r2, #4]
-	//lcd_clear_display();
 	displayLCD();
  8000a70:	f7ff ff9c 	bl	80009ac <displayLCD>
 }

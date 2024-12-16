@@ -1,0 +1,61 @@
+/*
+ * fsm_setting.c
+ *
+ *  Created on: Nov 3, 2024
+ *      Author: Son
+ */
+
+#include "global.h"
+
+void fsm_setting_run(){
+	if (timer3_flag == 1){
+		int tmp1 = led7SEG_buffer[0]*10+led7SEG_buffer[1];
+		int tmp2 = led7SEG_buffer[2]*10+led7SEG_buffer[3];
+		tmp1--;
+		tmp2--;
+		update7SEGBuffer1(tmp1);
+		update7SEGBuffer2(tmp2);
+		setTimer3(100);
+	}
+	if (timer4_flag == 1){
+		update7SEG(index_led++);
+		if (index_led >= MAX_LED) index_led = 0;
+		setTimer4(25);
+	}
+	if (isButton1Pressed()){
+		switch (status1){
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			status1 = MANUAL_RED;
+			status2 = MANUAL_RED;
+			setInit();
+			setTimer1(25);
+			setTimer2(25);
+			break;
+		case MANUAL_RED:
+			status1 = MANUAL_GREEN;
+			status2 = MANUAL_GREEN;
+			setTimer1(25);
+			setTimer2(25);
+			break;
+		case MANUAL_GREEN:
+			status1 = MANUAL_YELLOW;
+			status2 = MANUAL_YELLOW;
+			setTimer1(25);
+			setTimer2(25);
+			break;
+		case MANUAL_YELLOW:
+			status1 = AUTO_RED;
+			status2 = AUTO_GREEN;
+			setTimer1(timeRed);
+			setTimer2(timeGreen);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+
