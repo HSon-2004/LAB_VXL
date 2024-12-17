@@ -1,0 +1,3 @@
+lcd_display.c:16:6:displayLCD	8	static
+lcd_display.c:28:6:setBufferLCD	16	static
+lcd_display.c:33:6:updateBufferLCD	8	static
